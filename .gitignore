@@ -1,0 +1,13 @@
+.DS_Store
+Thumbs.db
+node_modules/
+.opencode/
+.cache/
+dist/
+*.log
+*.local.json
+*.local.jsonc
+*.tmp
+*.bak
+*.swp
+*.swo
