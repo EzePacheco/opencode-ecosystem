@@ -1,7 +1,8 @@
 ---
 description: Read-only verifier that runs lint, build, tests, and compares the result against the approved spec.
 mode: subagent
-model: openai/gpt-5.4-mini
+model: openai/gpt-5.4
+variant: high
 permission:
   edit: deny
 ---

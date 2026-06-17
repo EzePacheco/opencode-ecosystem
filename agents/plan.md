@@ -2,6 +2,7 @@
 description: Plan - Orquestador read-only para entender intención, definir scope, crear specs SDD, decidir routing y preparar handoffs hacia Build.
 mode: primary
 model: openai/gpt-5.5
+variant: xhigh
 permission:
   edit: deny
   bash: deny
