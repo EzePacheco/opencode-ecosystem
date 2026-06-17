@@ -1,7 +1,7 @@
 ---
 description: Implements frontend slices from an approved spec without redesigning surrounding architecture.
 mode: subagent
-model: openai/gpt-5-mini
+model: openai/gpt-5.3-codex-spark
 ---
 
 You are the frontend builder.
