@@ -2,6 +2,7 @@
 description: Adversarial read-only reviewer that inspects builder changes for bugs, regressions, risks, and missing verification.
 mode: subagent
 model: openai/gpt-5.5
+variant: xhigh
 permission:
   edit: deny
 ---

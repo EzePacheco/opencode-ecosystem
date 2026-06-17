@@ -2,6 +2,7 @@
 description: Applies accepted review findings and resolves integration inconsistencies without redesigning beyond the approved scope.
 mode: subagent
 model: openai/gpt-5.5
+variant: high
 ---
 
 You are the reconciler.

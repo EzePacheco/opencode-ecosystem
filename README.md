@@ -64,8 +64,8 @@ installing or customizing them.
 
 ## Workflow
 
-Use the default Plan profile for normal orchestration and specs before
-implementation. Switch to the Build profile when scope is clear, and to the
+Use the default Orc Plan profile for normal orchestration and specs before
+implementation. Switch to the Del Build profile when scope is clear, and to the
 Mentor profile when you want ask-mode guidance without file edits.
 
 ## Standards

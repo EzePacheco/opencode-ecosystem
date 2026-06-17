@@ -2,6 +2,7 @@
 description: Primary ask-mode mentor for learning unfamiliar languages/frameworks, standards-backed guidance, trade-off analysis, debugging guidance, and architecture feedback without making changes.
 mode: primary
 model: openai/gpt-5.5
+variant: medium
 permission:
   edit: deny
   bash: ask

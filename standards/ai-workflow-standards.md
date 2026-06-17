@@ -1,7 +1,7 @@
 # AI Workflow Standards For opencode
 
 Adaptador entre metodologias de ingenieria y superficies nativas de opencode:
-agentes, skills, references, MCP, permisos, config y Plan/Build.
+agentes, skills, references, MCP, permisos, config y Orc Plan/Del Build.
 
 ## Principios
 
@@ -61,8 +61,8 @@ No promover a memoria durable:
 
 ## Roles Recomendados
 
-- `plan`: orquesta en modo read-only, entiende el pedido, define scope, arma SDD, decide routing y prepara handoffs hacia Build.
-- `build`: delega implementacion desde scope o spec aprobada, coordina builders, reconciler, reviewer y verifier.
+- `plan` (Orc Plan): orquesta en modo read-only, entiende el pedido, define scope, arma SDD, decide routing y prepara handoffs hacia Del Build.
+- `build` (Del Build): delega implementacion desde scope o spec aprobada, coordina builders, reconciler, reviewer y verifier.
 - `*-builder`: implementa solo el slice asignado.
 - `code-reviewer`: critica diff y riesgos; no edita.
 - `reconciler`: aplica findings concretos e inconsistencias de integracion.
