@@ -61,8 +61,8 @@ No promover a memoria durable:
 
 ## Roles Recomendados
 
-- `orchestrator`: entiende el pedido, define el routing y mantiene el scope.
-- `plan`: arma SDD y particiona trabajo; no edita.
+- `plan`: orquesta en modo read-only, entiende el pedido, define scope, arma SDD, decide routing y prepara handoffs hacia Build.
+- `build`: delega implementacion desde scope o spec aprobada, coordina builders, reconciler, reviewer y verifier.
 - `*-builder`: implementa solo el slice asignado.
 - `code-reviewer`: critica diff y riesgos; no edita.
 - `reconciler`: aplica findings concretos e inconsistencias de integracion.

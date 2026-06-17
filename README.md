@@ -64,9 +64,9 @@ installing or customizing them.
 
 ## Workflow
 
-Use the default orchestrator for normal work. Switch to the planning profile when
-you want a spec before implementation, to the build profile when scope is clear,
-and to the mentor profile when you want ask-mode guidance without file edits.
+Use the default Plan profile for normal orchestration and specs before
+implementation. Switch to the Build profile when scope is clear, and to the
+Mentor profile when you want ask-mode guidance without file edits.
 
 ## Standards
 
