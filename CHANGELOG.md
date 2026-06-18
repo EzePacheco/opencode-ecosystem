@@ -24,9 +24,18 @@ All notable changes to this portable opencode setup are documented here.
   target rejection, `-- <target>` Bash parsing, and stale active-surface warnings.
 - Added `GLOBAL.md` to managed installer items so legacy global instructions are
   refreshed with backup semantics.
-- Added the local `agent-memory` MCP server configuration for persistent memory,
-  disabled by default because the external memory binary is not bundled.
+- Declared the local `agent-memory` MCP server for persistent memory, but kept
+  it disabled by default unless users install or override the local binary; direct
+  use remains denied to standard agents so retrieval flows through
+  `memory-retriever` via orchestration.
 - Overrode the `explore` subagent with a cheap read-only DeepSeek profile and
-  added `explore-mini` as an `openai/gpt-5.4-mini-fast` fallback because GPT-5.4
-  Nano is not exposed by the current runtime; it can be switched to Nano when
-  available.
+  added `explore-mini` as an `openai/gpt-5.4-mini` fallback when DeepSeek is
+  unavailable or fails.
+- Updated the model and temperature matrix across core profiles (`plan`,
+  `build`, builders, `explore-mini`, `verifier`, `reconciler`, and
+  `code-reviewer`) to the approved operational baseline.
+- Added `documentation-writer` and `memory-retriever` subagents for
+  docs-focused updates and repo-file-backed persistent-memory verification.
+- Strengthened `code-reviewer` to remain explicitly strict and finding-first,
+  with explicit focus on security, contract regressions, and missing verification
+  before acceptance.

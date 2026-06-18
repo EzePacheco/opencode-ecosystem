@@ -1,7 +1,9 @@
 ---
-description: Fallback fast, cheap, read-only exploration using GPT-5.4 Mini Fast when the DeepSeek explore agent is unavailable or fails.
+description: Fallback fast, cheap, read-only exploration using GPT-5.4 Mini when the DeepSeek explore agent is unavailable or fails.
 mode: subagent
-model: openai/gpt-5.4-mini-fast
+model: openai/gpt-5.4-mini
+variant: medium
+temperature: 0.1
 steps: 8
 permission:
   "*": deny
@@ -25,6 +27,7 @@ permission:
   doom_loop: deny
   lsp: deny
   external_directory: ask
+  "agent-memory_*": deny
 ---
 
 You are Fast Explore Mini.

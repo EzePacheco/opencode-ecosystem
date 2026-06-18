@@ -95,9 +95,10 @@ tasks.
 
 The built-in `explore` subagent is overridden with a cheap read-only profile on
 `opencode/deepseek-v4-flash-free`; `explore-mini` is available as an
-`openai/gpt-5.4-mini-fast` fallback when DeepSeek is unavailable because GPT-5.4
-Nano is not exposed by the current runtime. It can be switched to Nano when that
-model becomes available.
+`openai/gpt-5.4-mini` fallback when DeepSeek is unavailable.
+
+It also includes dedicated `documentation-writer` and `memory-retriever`
+subagents for docs updates and orchestrated memory retrieval support.
 
 The public README intentionally stays high level. Inspect the files under
 `agents/` for exact model selections, permissions, and profile instructions before
@@ -121,9 +122,9 @@ Do not load every standard by default.
 
 ## MCP Memory
 
-This setup declares the local persistent-memory MCP server `agent-memory`.
-It is disabled by default so fresh installs do not start with a failing MCP when
-the external memory server is not installed yet:
+This setup declares the local persistent-memory MCP server `agent-memory`, but
+keeps it disabled by default so fresh installs do not fail when the local binary
+is missing:
 
 ```jsonc
 "mcp": {
@@ -135,9 +136,13 @@ the external memory server is not installed yet:
 }
 ```
 
+Standard agents are denied direct `agent-memory` access. Memory retrieval is
+expected to flow through orchestration to the dedicated `memory-retriever`
+subagent when that capability is explicitly needed.
+
 The default command is POSIX-oriented and resolves to
-`~/.agent-memory/bin/agent-memory mcp` when `$HOME` is set. Enable it locally
-after verifying the memory server install path, or override the MCP entry if your
-binary lives elsewhere. Windows users should override the command or provide a
-compatible `HOME` environment variable before enabling it. Keep tokens and
-machine-specific secrets out of the repo.
+`~/.agent-memory/bin/agent-memory mcp` when `$HOME` is set. Enable it only after
+you have installed the binary or overridden the command for your environment.
+Windows users should override the command or provide a compatible `HOME`
+environment variable before enabling it. Keep tokens and machine-specific
+secrets out of the repo.

@@ -1,8 +1,11 @@
 ---
 description: Applies accepted review findings and resolves integration inconsistencies without redesigning beyond the approved scope.
 mode: subagent
-model: openai/gpt-5.5
+model: openai/gpt-5.4
 variant: high
+temperature: 0.1
+permission:
+  "agent-memory_*": deny
 ---
 
 You are the reconciler.

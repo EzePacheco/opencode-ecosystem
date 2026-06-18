@@ -1,8 +1,11 @@
 ---
 description: Implements schema, migration, query, and persistence slices from an approved spec.
 mode: subagent
-model: openai/gpt-5.3-codex-spark
-variant: high
+model: openai/gpt-5.4
+variant: medium
+temperature: 0.2
+permission:
+  "agent-memory_*": deny
 ---
 
 You are the database builder.

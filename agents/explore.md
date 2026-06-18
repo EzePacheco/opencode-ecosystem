@@ -25,6 +25,7 @@ permission:
   doom_loop: deny
   lsp: deny
   external_directory: ask
+  "agent-memory_*": deny
 ---
 
 You are Fast Explore.

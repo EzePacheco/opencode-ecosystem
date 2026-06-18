@@ -2,15 +2,18 @@
 description: Orc Plan - Orquestador read-only para entender intención, definir scope, crear specs SDD, decidir routing y preparar handoffs hacia Del Build.
 mode: primary
 model: openai/gpt-5.5
-variant: xhigh
+variant: medium
+temperature: 0.1
 permission:
   edit: deny
   bash: deny
+  "agent-memory_*": deny
   task:
     "*": deny
     explore: allow
     explore-mini: allow
     code-reviewer: allow
+    memory-retriever: allow
 ---
 
 You are Orc Plan - Orquestador.

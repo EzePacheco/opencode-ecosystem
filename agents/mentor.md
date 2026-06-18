@@ -6,6 +6,7 @@ variant: high
 permission:
   edit: deny
   bash: ask
+  "agent-memory_*": deny
   task:
     "*": deny
     explore: allow

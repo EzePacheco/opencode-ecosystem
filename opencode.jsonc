@@ -10,6 +10,9 @@
       "enabled": false
     }
   },
+  "permission": {
+    "agent-memory_*": "deny"
+  },
   "references": {
     "standards": {
       "path": "./standards",
