@@ -1,7 +1,5 @@
 # Global Workflow
 
-> Legacy compatibility file. The canonical global instruction source for this setup is `AGENTS.md`.
-
 - Main thread default: orquestar, aclarar alcance, decidir routing y sintetizar.
 - Antes de cargar standards, leer `@standards/INDEX.md` y abrir solo lo necesario.
 - Para trabajo no trivial, producir spec antes de implementar.

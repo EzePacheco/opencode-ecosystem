@@ -5,6 +5,14 @@ model: openai/gpt-5.5
 variant: xhigh
 permission:
   edit: deny
+  bash:
+    "*": deny
+    "git status --short": allow
+    "git diff": allow
+    "git diff --stat": allow
+    "git log --oneline -10": allow
+    "git show --stat": allow
+  task: deny
 ---
 
 You are an adversarial, critical code reviewer.

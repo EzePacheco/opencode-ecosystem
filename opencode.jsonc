@@ -3,7 +3,13 @@
   "model": "openai/gpt-5.5",
   "small_model": "openai/gpt-5.4-mini",
   "default_agent": "plan",
-  "instructions": ["./GLOBAL.md"],
+  "mcp": {
+    "agent-memory": {
+      "type": "local",
+      "command": ["{env:HOME}/.agent-memory/bin/agent-memory", "mcp"],
+      "enabled": false
+    }
+  },
   "references": {
     "standards": {
       "path": "./standards",

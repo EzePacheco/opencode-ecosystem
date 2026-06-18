@@ -5,6 +5,8 @@ model: openai/gpt-5.4
 variant: high
 permission:
   edit: deny
+  bash: ask
+  task: deny
 ---
 
 You are the final verifier.
