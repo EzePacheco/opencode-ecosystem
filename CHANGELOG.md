@@ -4,6 +4,12 @@ All notable changes to this portable opencode setup are documented here.
 
 ## Unreleased
 
+- Expanded the Mentor profile to reason from software-design fundamentals,
+  compare patterns and alternatives explicitly, and use ask-gated web research
+  with official-docs-first guidance and sanitized external queries.
+- Added mentoring-oriented standards for software-design fundamentals, pattern
+  selection, repository organization, technology decisions, and technical
+  research guardrails.
 - Added explicit reasoning variants to agent profiles based on current opencode model variant support.
 - Updated Plan/Build role labels to Orc Plan and Del Build while keeping stable agent ids.
 - Added a Bash installer for Linux/macOS alongside the existing PowerShell installer.

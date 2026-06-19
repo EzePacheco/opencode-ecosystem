@@ -12,7 +12,9 @@ review, reconciliation, verification, and standards-backed mentoring.
   verification, and mentoring.
 - `skills/`: reusable workflows for planning, review, reconciliation, and final
   checks.
-- `standards/`: curated technical standards and opencode workflow guidance.
+- `standards/`: curated technical standards and opencode workflow guidance,
+  including design fundamentals, patterns, repository organization, technology
+  decision playbooks, and external research guardrails.
 - `install.ps1`: copies this repo into `~/.config/opencode` (or `$XDG_CONFIG_HOME` if set) on Windows.
 - `install.sh`: copies this repo into `~/.config/opencode` (or `$XDG_CONFIG_HOME`) on Linux/macOS.
 
@@ -93,6 +95,12 @@ implementation flow, and ask-mode mentoring. It also includes scoped subagents
 for backend, frontend, database, DevOps, review, reconciliation, and verification
 tasks.
 
+The Mentor profile stays read-only, but can now ask-gated web research when local
+standards or model knowledge are insufficient. It is instructed to prioritize
+official docs, specs, changelogs, and vendor documentation, and to treat Stack
+Overflow or similar community sources as secondary signals rather than final
+authority.
+
 The built-in `explore` subagent is overridden with a cheap read-only profile on
 `opencode/deepseek-v4-flash-free`; `explore-mini` is available as an
 `openai/gpt-5.4-mini` fallback when DeepSeek is unavailable.
@@ -119,6 +127,10 @@ Load standards on demand via the `standards` reference. Start with:
 ```
 
 Do not load every standard by default.
+
+New mentoring-oriented standards cover software-design fundamentals, pattern
+selection, repository organization, technology decisions, and technical web
+research guardrails.
 
 ## MCP Memory
 
