@@ -1,8 +1,8 @@
 ---
 description: Adversarial read-only reviewer that inspects builder changes for bugs, regressions, risks, and missing verification.
 mode: subagent
-model: openai/gpt-5.4
-variant: high
+model: openai/gpt-5.5
+variant: xhigh
 temperature: 0.1
 permission:
   edit: deny
@@ -35,7 +35,31 @@ Rules:
 
 Output format:
 
-- Severity-ordered findings.
-- Each finding should include file, line or area, problem, impact, and concrete recommendation.
-- Then open questions or assumptions.
-- Then a brief verdict: `accepted` or `rework-required`.
+- Return JSON only.
+- Use this exact common schema. Do not add extra top-level keys:
+
+```json
+{
+  "verdict": "accepted | rework-required",
+  "findings": [
+    {
+      "id": "CR-001",
+      "severity": "critical | high | medium | low",
+      "file": "path/to/file",
+      "line": 123,
+      "problem": "Descripción del problema",
+      "impact": "Impacto concreto",
+      "suggestion": "Cambio recomendado",
+      "blocking": true
+    }
+  ],
+  "open_questions": [],
+  "verification_gaps": []
+}
+```
+
+- Order findings by severity.
+- Use stable IDs like `CR-001`, `CR-002`.
+- If there are no findings, return `"findings": []`, `"verdict": "accepted"`.
+- Put missing verification in `verification_gaps` and set
+  `"verdict": "rework-required"` when the gap is blocking.

@@ -176,7 +176,7 @@ if [[ -e "$target" && ! -d "$target" ]]; then
   exit 1
 fi
 
-items=(
+managed_labels=(
   "opencode.jsonc"
   "AGENTS.md"
   "GLOBAL.md"
@@ -185,9 +185,19 @@ items=(
   "standards"
 )
 
-for item in "${items[@]}"; do
-  if [[ ! -e "$source_dir/$item" ]]; then
-    printf 'Missing source item: %s\n' "$source_dir/$item" >&2
+managed_mappings=(
+  "opencode.jsonc:opencode.jsonc"
+  "GLOBAL.md:AGENTS.md"
+  "GLOBAL.md:GLOBAL.md"
+  "agents:agents"
+  "skills:skills"
+  "standards:standards"
+)
+
+for mapping in "${managed_mappings[@]}"; do
+  IFS=':' read -r src_name dest_name <<<"$mapping"
+  if [[ ! -e "$source_dir/$src_name" ]]; then
+    printf 'Missing source item: %s\n' "$source_dir/$src_name" >&2
     exit 1
   fi
 done
@@ -211,7 +221,7 @@ for stale in "${stale_items[@]}"; do
   fi
 done
 
-printf 'Managed items will be replaced in %s: %s\n' "$target" "${items[*]}"
+printf 'Managed items will be replaced in %s: %s\n' "$target" "${managed_labels[*]}"
 
 if [[ "$force" == true ]]; then
   printf 'Overwrite mode: --force active, replacements will not be backed up.\n'
@@ -222,16 +232,17 @@ fi
 timestamp="$(date +%Y%m%d-%H%M%S)-$$"
 backup_root="$target/.opencode-install-backup/$timestamp"
 
-for item in "${items[@]}"; do
-  from="$source_dir/$item"
-  to="$target/$item"
+for mapping in "${managed_mappings[@]}"; do
+  IFS=':' read -r src_name dest_name <<<"$mapping"
+  from="$source_dir/$src_name"
+  to="$target/$dest_name"
   assert_destination_safe "$to"
 
   if [[ -e "$to" || -L "$to" ]]; then
     if [[ "$force" == true ]]; then
       rm -rf -- "$to"
     else
-      backup="$backup_root/$item"
+      backup="$backup_root/$dest_name"
       assert_destination_safe "$backup"
       mkdir -p -- "$(dirname -- "$backup")"
       mv -- "$to" "$backup"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Architecture Decision"
+  short_description: "Guide architecture and ADR decisions"
+  default_prompt: "Use $architecture-decision to compare architecture options and draft the decision."

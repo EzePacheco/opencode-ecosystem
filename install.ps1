@@ -220,7 +220,7 @@ if (Test-VisiblePathExists -Path $targetFull) {
   }
 }
 
-$items = @(
+$managedLabels = @(
   'opencode.jsonc',
   'AGENTS.md',
   'GLOBAL.md',
@@ -229,8 +229,17 @@ $items = @(
   'standards'
 )
 
-foreach ($item in $items) {
-  $from = Join-Path -Path $source -ChildPath $item
+$managedMappings = @(
+  @{ Source = 'opencode.jsonc'; Destination = 'opencode.jsonc' },
+  @{ Source = 'GLOBAL.md'; Destination = 'AGENTS.md' },
+  @{ Source = 'GLOBAL.md'; Destination = 'GLOBAL.md' },
+  @{ Source = 'agents'; Destination = 'agents' },
+  @{ Source = 'skills'; Destination = 'skills' },
+  @{ Source = 'standards'; Destination = 'standards' }
+)
+
+foreach ($mapping in $managedMappings) {
+  $from = Join-Path -Path $source -ChildPath $mapping.Source
   if (-not (Test-VisiblePathExists -Path $from)) {
     throw "Missing source item: $from"
   }
@@ -259,7 +268,7 @@ foreach ($stale in $staleItems) {
   }
 }
 
-Write-Host "Managed items will be replaced in $Target: $($items -join ', ')"
+Write-Host "Managed items will be replaced in $Target: $($managedLabels -join ', ')"
 
 if ($Force) {
   Write-Host 'Overwrite mode: -Force active, replacements will not be backed up.'
@@ -272,16 +281,16 @@ $timestamp = "$timestamp-$PID"
 $backupRoot = Join-Path -Path $Target -ChildPath '.opencode-install-backup'
 $backupRoot = Join-Path -Path $backupRoot -ChildPath $timestamp
 
-foreach ($item in $items) {
-  $from = Join-Path -Path $source -ChildPath $item
-  $to = Join-Path -Path $Target -ChildPath $item
+foreach ($mapping in $managedMappings) {
+  $from = Join-Path -Path $source -ChildPath $mapping.Source
+  $to = Join-Path -Path $Target -ChildPath $mapping.Destination
   Assert-SafeDestination -Destination $to -TargetRoot $Target -SourceRoot $source
 
   if (Test-VisiblePathExists -Path $to) {
     if ($Force) {
       Remove-Item -Recurse -Force -LiteralPath $to
     } else {
-      $backup = Join-Path -Path $backupRoot -ChildPath $item
+      $backup = Join-Path -Path $backupRoot -ChildPath $mapping.Destination
       Assert-SafeDestination -Destination $backup -TargetRoot $Target -SourceRoot $source
       $backupDir = Split-Path -Parent $backup
       if (-not (Test-VisiblePathExists -Path $backupDir)) {

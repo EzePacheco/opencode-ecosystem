@@ -61,12 +61,61 @@ No promover a memoria durable:
 
 ## Roles Recomendados
 
-- `plan` (Orc Plan): orquesta en modo read-only, entiende el pedido, define scope, arma SDD, decide routing y prepara handoffs hacia Del Build.
+- `plan` (Orc Plan): orquesta, entiende el pedido, define scope, arma SDD, decide routing y prepara handoffs hacia Del Build. No implementa, y solo puede persistir specs del workspace en archivos `.spec.md` (por defecto en `.opencode/specs/`, o siguiendo convenciones equivalentes como `.codex/specs/`, `.claude/specs/` y `docs/specs/`); no puede editar archivos no-spec.
 - `build` (Del Build): delega implementacion desde scope o spec aprobada, coordina builders, reconciler, reviewer y verifier.
 - `*-builder`: implementa solo el slice asignado.
 - `code-reviewer`: critica diff y riesgos; no edita.
 - `reconciler`: aplica findings concretos e inconsistencias de integracion.
 - `verifier`: ejecuta lint, build, tests y compara contra la spec.
+
+### Flujo V3 (runtime contract)
+
+- `plan` debe incluir campos opcionales de handoff (`size`, `mini`,
+  `needs_qa`, `human_gate`, `reference_files`, `risk_flags`,
+  `tech_lead_recommended`, `worktree_recommended`, `max_rework_iterations`) de
+  forma consistente con `build`.
+- `build` debe clasificar riesgo y aplicar reglas de Mini-SDD con `risk_flags`
+  antes de invocar review/comparación. Superficies como `agents`, runtime de
+  workflow, `installers/doctors`, worktree orchestration y contratos públicos
+  requieren review de arquitectura; permisos, MCP, `agent-memory`, auth,
+  secretos, privacidad, input externo y supply chain requieren review de
+  seguridad; cuando esas superficies mueven trust boundaries o permisos,
+  corresponden ambos reviewers.
+- `code-reviewer`, `architecture-reviewer`, `security-reviewer`, `reconciler` y
+  `verifier` deben devolver/consumir salida JSON estructurada para cierre
+  determinista. Los tres reviewers comparten el mismo schema top-level exacto:
+  `verdict`, `findings`, `open_questions`, `verification_gaps`.
+- Si `human_gate=true`, la pausa debe ocurrir tras `code-reviewer` y antes de
+  pasar findings a `reconciler`.
+- Si `verifier` emite `rework-required`, `build` debe pasar esos failures a
+  `reconciler` y luego rerun `verifier`; cada ciclo `reconciler -> verifier`
+  cuenta como una iteración, con máximo 3.
+- Si `needs_qa=true`, el handoff a `qa-builder` debe incluir `spec`,
+  `reference_files`, `allowed_test_paths` y `verification_commands`.
+- `qa-builder` debe ejecutarse solo cuando `needs_qa=true`.
+- `tech-lead` aplica para `size: L|XL` y cuando el propio plan lo recomienda.
+- `worktree-manager` está restringido a comandos de worktree seguros (`list`,
+  `add`, estado). `build` debe capturar las rutas devueltas, asignar como
+  máximo un builder writable por ruta y escalar cleanup al humano en lugar de
+  remover worktrees de forma autónoma.
+- MCP policy nativa: `agent-memory` está declarado pero con
+  `enabled: false`; la delegación directa está denegada (`agent-memory_*`
+  deny), incluso para `memory-retriever`, hasta aprobación separada. No se deben
+  versionar secretos ni credenciales en `opencode.jsonc`.
+
+Fuente de contraste:
+
+- `agents/plan.md`
+- `agents/build.md`
+- `agents/code-reviewer.md`
+- `agents/architecture-reviewer.md`
+- `agents/security-reviewer.md`
+- `agents/reconciler.md`
+- `agents/verifier.md`
+- `agents/qa-builder.md`
+- `agents/tech-lead.md`
+- `agents/worktree-manager.md`
+- `opencode.jsonc`
 
 ## Delegacion
 
