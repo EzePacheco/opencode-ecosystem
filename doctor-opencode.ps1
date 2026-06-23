@@ -129,34 +129,38 @@ if ($globalText -ne (Get-Content -LiteralPath (Join-Path $ScriptRoot 'GLOBAL.md'
 Write-Host 'ok docs  runtime instruction files validated'
 
 $expected = @{
-  'mentor' = @('openai/gpt-5.5', 'high')
-  'plan' = @('openai/gpt-5.5', 'xhigh')
-  'build' = @('openai/gpt-5.5', 'high')
-  'backend-builder' = @('openai/gpt-5.5', 'medium')
-  'frontend-builder' = @('openai/gpt-5.5', 'medium')
-  'database-builder' = @('openai/gpt-5.5', 'medium')
-  'devops-builder' = @('openai/gpt-5.5', 'medium')
-  'qa-builder' = @('openai/gpt-5.5', 'high')
-  'tech-lead' = @('openai/gpt-5.5', 'xhigh')
-  'code-reviewer' = @('openai/gpt-5.5', 'xhigh')
-  'architecture-reviewer' = @('openai/gpt-5.5', 'high')
-  'security-reviewer' = @('openai/gpt-5.5', 'high')
-  'reconciler' = @('openai/gpt-5.5', 'high')
-  'verifier' = @('openai/gpt-5.5', 'medium')
-  'explore' = @('openai/gpt-5.4-mini', 'medium')
-  'explore-mini' = @('openai/gpt-5.4-mini', 'medium')
-  'worktree-manager' = @('openai/gpt-5.4-mini', 'medium')
-  'documentation-writer' = @('openai/gpt-5.4', 'medium')
-  'memory-retriever' = @('openai/gpt-5.4-mini', 'medium')
+  'mentor' = @('openai/gpt-5.5', 'high', 'high')
+  'plan' = @('openai/gpt-5.5', 'xhigh', 'high')
+  'build' = @('openai/gpt-5.5', 'high', 'high')
+  'backend-builder' = @('openai/gpt-5.5', 'medium', 'medium')
+  'frontend-builder' = @('openai/gpt-5.5', 'medium', 'medium')
+  'database-builder' = @('openai/gpt-5.5', 'medium', 'medium')
+  'devops-builder' = @('openai/gpt-5.5', 'medium', 'medium')
+  'qa-builder' = @('openai/gpt-5.5', 'high', 'high')
+  'tech-lead' = @('openai/gpt-5.5', 'xhigh', 'high')
+  'code-reviewer' = @('openai/gpt-5.5', 'xhigh', 'high')
+  'architecture-reviewer' = @('openai/gpt-5.5', 'high', 'high')
+  'security-reviewer' = @('openai/gpt-5.5', 'high', 'high')
+  'reconciler' = @('openai/gpt-5.5', 'high', 'high')
+  'verifier' = @('openai/gpt-5.5', 'high', 'high')
+  'explore' = @('openai/gpt-5.4-mini', 'medium', 'medium')
+  'explore-mini' = @('openai/gpt-5.4-mini', 'medium', 'medium')
+  'worktree-manager' = @('openai/gpt-5.4-mini', 'medium', 'medium')
+  'documentation-writer' = @('openai/gpt-5.4', 'medium', 'medium')
+  'memory-retriever' = @('openai/gpt-5.4-mini', 'medium', 'medium')
 }
 
 foreach ($name in $expected.Keys) {
   $text = Get-Content -LiteralPath (Join-Path $Target "agents/$name.md") -Raw
   $modelMatch = [regex]::Match($text, '^model:\s*(.+)$', [System.Text.RegularExpressions.RegexOptions]::Multiline)
   $variantMatch = [regex]::Match($text, '^variant:\s*(.+)$', [System.Text.RegularExpressions.RegexOptions]::Multiline)
-  $actual = @($modelMatch.Groups[1].Value.Trim(), $variantMatch.Groups[1].Value.Trim())
+  $reasoningEffortMatch = [regex]::Match($text, '^reasoningEffort:\s*(.+)$', [System.Text.RegularExpressions.RegexOptions]::Multiline)
+  $actual = @($modelMatch.Groups[1].Value.Trim(), $variantMatch.Groups[1].Value.Trim(), $reasoningEffortMatch.Groups[1].Value.Trim())
   $expectedPair = $expected[$name]
-  if ($actual[0] -ne $expectedPair[0] -or $actual[1] -ne $expectedPair[1]) {
+  if ($variantMatch.Success -and -not $reasoningEffortMatch.Success) {
+    throw "$name has variant without corresponding reasoningEffort"
+  }
+  if ($actual[0] -ne $expectedPair[0] -or $actual[1] -ne $expectedPair[1] -or $actual[2] -ne $expectedPair[2]) {
     throw "unexpected $name: $($actual -join ', '), expected $($expectedPair -join ', ')"
   }
 }

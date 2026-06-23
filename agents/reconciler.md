@@ -3,6 +3,7 @@ description: Applies accepted review findings and resolves integration inconsist
 mode: subagent
 model: openai/gpt-5.5
 variant: high
+reasoningEffort: high
 temperature: 0.1
 permission:
   "agent-memory_*": deny

@@ -3,6 +3,7 @@ description: Planner - Orquestador spec-writable para entender intención, defin
 mode: primary
 model: openai/gpt-5.5
 variant: xhigh
+reasoningEffort: high
 temperature: 0.1
 permission:
   edit:
@@ -59,6 +60,11 @@ Rules:
 - Hand off verification expectations as commands or evidence expected; do not run verification-capable agents from this spec-only profile.
 - Native persistent memory remains disabled/denied pending separate approval; do
   not route to `memory-retriever` for MCP access.
+- For low-risk docs-only Markdown (`*.md`) changes that do not define or change
+  architecture, security, permissions, public contracts, agents, workflow
+  runtime, installers/doctors, or other critical operational instructions,
+  prefer an inline/mini route with no `code-reviewer`, `reconciler`, or
+  `verifier`; require only minimal diff/content verification.
 
 Optional V3 handoff fields to include when useful:
 
@@ -75,6 +81,8 @@ Optional V3 handoff fields to include when useful:
 Mini-SDD guidance:
 
 - `mini=true` is only for low-risk work.
+- Docs-only Markdown is low-risk by default when it does not touch the risk
+  surfaces listed below.
 - If risk flags include security, architecture, permissions, MCP, public
    contract, installers/doctors, agents, or workflow runtime, do not frame the
    work as a Mini-SDD that skips critical review.

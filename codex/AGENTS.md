@@ -17,6 +17,19 @@
 - Escalate to architecture decision, ADR, security review, or SDD only when the decision is durable, cross-cutting, risky, or contract-changing.
 - Keep the pipeline risk-driven, not ceremonial.
 
+## Docs-only Fast Path
+
+- Changes that only create or edit Markdown documentation (`*.md`) are low risk
+  by default and do not require adversarial review, reconcile, ship-check, or a
+  verifier.
+- For docs-only work, use minimal verification: inspect diff/content, touched
+  paths, reasonable Markdown formatting, and obvious links/references when
+  applicable.
+- Exception: if the documentation changes or defines architecture, security,
+  permissions, public contracts, critical workflows, agents, installers/doctors,
+  or operational instructions with real impact, apply the reviewers/checks that
+  correspond to that risk.
+
 ## Standards
 
 - Before loading standards, read `~/.codex/harness/standards/INDEX.md`.

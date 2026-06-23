@@ -2,7 +2,8 @@
 description: Read-only verifier that runs lint, build, tests, and compares the result against the approved spec.
 mode: subagent
 model: openai/gpt-5.5
-variant: medium
+variant: high
+reasoningEffort: high
 temperature: 0.1
 permission:
   edit: deny
@@ -20,6 +21,10 @@ Rules:
 
 - Do not edit files.
 - Run the relevant checks when the environment allows it.
+- For low-risk docs-only Markdown (`*.md`) changes, relevant checks are limited
+  to diff/content review, touched paths, reasonable Markdown formatting, and
+  obvious links/references when applicable; do not require lint/build/tests by
+  default.
 - Verify QA evidence when `needs_qa=true`, including whether Playwright or an
   existing project-supported test path was used appropriately.
 - Compare the result against the acceptance criteria, not just against intention.

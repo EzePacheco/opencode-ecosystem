@@ -12,8 +12,10 @@ All notable changes to this portable opencode setup are documented here.
 - Added native OpenCode `architecture-reviewer` and `security-reviewer`
   subagents.
 - Upgraded the native OpenCode model matrix to the approved baseline: GPT-5.5
-  for mentor/plan/build/review/reconcile/verifier/builders, GPT-5.4 for docs,
-  GPT-5.4 Mini for both `explore` and `explore-mini`, and GPT-5.4 Mini for the
+  xhigh intent for `plan`, `tech-lead`, and `code-reviewer`; GPT-5.5 high for
+  `mentor`, `build`, `qa-builder`, architecture/security review, `reconciler`,
+  and `verifier`; GPT-5.5 medium for implementation builders; GPT-5.4 for docs;
+  GPT-5.4 Mini for both `explore` and `explore-mini`; and GPT-5.4 Mini for the
   disabled native `memory-retriever` placeholder.
 - Added a native `spec` workflow with `.opencode/specs/` as the default
   repo-local convention for persisted specs, while also documenting
@@ -43,6 +45,10 @@ All notable changes to this portable opencode setup are documented here.
   selection, repository organization, technology decisions, and technical
   research guardrails.
 - Added explicit reasoning variants to agent profiles based on current opencode model variant support.
+- Added OpenAI-effective `reasoningEffort` frontmatter to every native agent and
+  taught doctors to validate model, variant, and reasoning effort together;
+  `xhigh` remains the repo intent label but maps to OpenAI `high` because the
+  standard option has no `xhigh` value.
 - Updated Plan/Build role labels to Orc Plan and Del Build while keeping stable agent ids.
 - Added a Bash installer for Linux/macOS alongside the existing PowerShell installer.
 - Added an ask-mode mentor profile for standards-backed technical guidance without file edits.

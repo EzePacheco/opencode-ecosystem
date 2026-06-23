@@ -14,6 +14,8 @@ repo `AGENTS.md`, repo `.agents/skills`, MCP, permisos y subagentes.
   siendo no confiable hasta verificarla.
 - Subagentes sirven para paralelismo, aislamiento de contexto o review fresca,
   no para ceremonial.
+- Los cambios docs-only (`*.md`) no deben disparar ceremonia pesada por defecto;
+  revisar contenido/diff y elevar solo si el doc cambia riesgos reales.
 
 ## Contexto
 
@@ -83,6 +85,12 @@ No promover a memoria durable:
   modo read-only segun el riesgo.
 - `reconciler`: aplica findings concretos e inconsistencias de integracion.
 - `verifier` o `ship-check`: ejecuta checks y compara contra scope o spec.
+- Docs-only fast path: cuando el diff solo crea o modifica Markdown (`*.md`) y
+  no altera contratos, arquitectura, seguridad, permisos, agentes, workflows
+  criticos, installers/doctors ni instrucciones operativas con impacto real, el
+  cierre puede ser inline sin review adversarial, reconciler, verifier ni
+  ship-check; basta revisar diff/contenido, rutas, formato Markdown razonable y
+  links/referencias obvias si aplican.
 
 ## Delegacion
 
@@ -124,6 +132,9 @@ Fases recomendadas:
 12. `verify`: validar contra spec, tests y evidencia.
 13. `archive`: registrar decisiones, deuda y follow-ups.
 
+Para docs-only de bajo riesgo, reducir el flujo a `apply` + revision minima del
+diff/contenido; no convertir escritura Markdown rutinaria en SDD completo.
+
 Default interactivo: pausar entre `proposal`, `spec`, `design` y `tasks`
 cuando haya decisiones de producto o arquitectura.
 
@@ -144,6 +155,9 @@ Cada builder debe recibir:
 Antes de cerrar:
 
 - Ejecutar checks relevantes.
+- Para docs-only de bajo riesgo, los checks relevantes son revision de
+  diff/contenido, rutas, Markdown razonable y links/referencias obvias si
+  aplican; no correr lint/build/tests, `ship-check` ni verifier por defecto.
 - Si hay UI, verificar visualmente cuando aplique.
 - Si hay API, DB o seguridad, validar contrato y casos negativos.
 - Si no se pudo verificar, reportar el comando o evidencia faltante.

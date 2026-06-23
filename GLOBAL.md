@@ -29,6 +29,18 @@
 - Si el cambio toca auth, permisos, tenancy, secretos, input externo,
   dependencias o privacidad, sumar `security-reviewer`.
 
+## Docs-only Fast Path
+
+- Cambios que solo escriben o editan documentacion Markdown (`*.md`) son bajo
+  riesgo por defecto y no requieren `code-reviewer`, `reconciler` ni
+  `verifier`.
+- Para docs-only, usar verificacion minima: revisar diff/contenido, rutas,
+  formato Markdown razonable y links o referencias obvias si aplican.
+- Excepcion: si la documentacion cambia o define arquitectura, seguridad,
+  permisos, contratos publicos, workflows criticos, agentes, installers/doctors
+  o instrucciones operativas con impacto real, aplicar los reviewers/checks
+  correspondientes a ese riesgo.
+
 ## Long Sessions
 
 - Usar `/goal` para objetivos persistentes.

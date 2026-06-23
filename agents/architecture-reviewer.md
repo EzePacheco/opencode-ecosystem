@@ -3,6 +3,7 @@ description: Read-only architecture reviewer for specs, ADRs, refactors, technol
 mode: subagent
 model: openai/gpt-5.5
 variant: high
+reasoningEffort: high
 temperature: 0.1
 permission:
   edit: deny

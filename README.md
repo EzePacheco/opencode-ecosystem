@@ -167,6 +167,12 @@ The built-in `explore` subagent is configured as a cheap read-only
 `openai/gpt-5.4-mini` and used as fallback when the primary explorer is
 unavailable.
 
+Agent frontmatter keeps both the repo's `variant` intent and the OpenAI-effective
+`reasoningEffort` option. `xhigh` and `high` variants map to
+`reasoningEffort: high`; `medium` maps to `reasoningEffort: medium`. OpenAI's
+standard reasoning-effort option has no `xhigh` value, so `xhigh` remains an
+intent label while the runtime option is `high`.
+
 It also includes a dedicated `documentation-writer`, a currently disabled native
 `memory-retriever` placeholder for repo-backed memory-note verification,
 `qa-builder` for scoped test work, a `tech-lead` for larger design-risk

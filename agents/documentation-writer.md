@@ -3,6 +3,7 @@ description: Updates project documentation from verified repo changes and caller
 mode: subagent
 model: openai/gpt-5.4
 variant: medium
+reasoningEffort: medium
 temperature: 0.3
 permission:
   "*": deny

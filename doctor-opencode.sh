@@ -223,39 +223,45 @@ import sys
 
 agents_dir = pathlib.Path(sys.argv[1])
 expected = {
-    "mentor": ("openai/gpt-5.5", "high"),
-    "plan": ("openai/gpt-5.5", "xhigh"),
-    "build": ("openai/gpt-5.5", "high"),
-    "backend-builder": ("openai/gpt-5.5", "medium"),
-    "frontend-builder": ("openai/gpt-5.5", "medium"),
-    "database-builder": ("openai/gpt-5.5", "medium"),
-    "devops-builder": ("openai/gpt-5.5", "medium"),
-    "qa-builder": ("openai/gpt-5.5", "high"),
-    "tech-lead": ("openai/gpt-5.5", "xhigh"),
-    "code-reviewer": ("openai/gpt-5.5", "xhigh"),
-    "architecture-reviewer": ("openai/gpt-5.5", "high"),
-    "security-reviewer": ("openai/gpt-5.5", "high"),
-    "reconciler": ("openai/gpt-5.5", "high"),
-    "verifier": ("openai/gpt-5.5", "medium"),
-    "explore": ("openai/gpt-5.4-mini", "medium"),
-    "explore-mini": ("openai/gpt-5.4-mini", "medium"),
-    "worktree-manager": ("openai/gpt-5.4-mini", "medium"),
-    "documentation-writer": ("openai/gpt-5.4", "medium"),
-    "memory-retriever": ("openai/gpt-5.4-mini", "medium"),
+    "mentor": ("openai/gpt-5.5", "high", "high"),
+    "plan": ("openai/gpt-5.5", "xhigh", "high"),
+    "build": ("openai/gpt-5.5", "high", "high"),
+    "backend-builder": ("openai/gpt-5.5", "medium", "medium"),
+    "frontend-builder": ("openai/gpt-5.5", "medium", "medium"),
+    "database-builder": ("openai/gpt-5.5", "medium", "medium"),
+    "devops-builder": ("openai/gpt-5.5", "medium", "medium"),
+    "qa-builder": ("openai/gpt-5.5", "high", "high"),
+    "tech-lead": ("openai/gpt-5.5", "xhigh", "high"),
+    "code-reviewer": ("openai/gpt-5.5", "xhigh", "high"),
+    "architecture-reviewer": ("openai/gpt-5.5", "high", "high"),
+    "security-reviewer": ("openai/gpt-5.5", "high", "high"),
+    "reconciler": ("openai/gpt-5.5", "high", "high"),
+    "verifier": ("openai/gpt-5.5", "high", "high"),
+    "explore": ("openai/gpt-5.4-mini", "medium", "medium"),
+    "explore-mini": ("openai/gpt-5.4-mini", "medium", "medium"),
+    "worktree-manager": ("openai/gpt-5.4-mini", "medium", "medium"),
+    "documentation-writer": ("openai/gpt-5.4", "medium", "medium"),
+    "memory-retriever": ("openai/gpt-5.4-mini", "medium", "medium"),
 }
 
 model_re = re.compile(r"^model:\s*(.+)$", re.M)
 variant_re = re.compile(r"^variant:\s*(.+)$", re.M)
+reasoning_effort_re = re.compile(r"^reasoningEffort:\s*(.+)$", re.M)
 
 for name, pair in expected.items():
     path = agents_dir / f"{name}.md"
     text = path.read_text(encoding="utf-8")
     model = model_re.search(text)
     variant = variant_re.search(text)
+    reasoning_effort = reasoning_effort_re.search(text)
     actual = (
         model.group(1).strip() if model else None,
         variant.group(1).strip() if variant else None,
+        reasoning_effort.group(1).strip() if reasoning_effort else None,
     )
+    if variant and not reasoning_effort:
+        print(f"{name} has variant without corresponding reasoningEffort")
+        sys.exit(1)
     if actual != pair:
         print(f"unexpected {name}: {actual!r}, expected {pair!r}")
         sys.exit(1)

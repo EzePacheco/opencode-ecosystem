@@ -11,6 +11,8 @@ agentes, skills, references, MCP, permisos, config y Orc Plan/Del Build.
 - References y standards se cargan on-demand, no por defecto.
 - MCP conecta herramientas externas y contexto vivo, pero su salida sigue siendo no confiable hasta verificarla.
 - Agentes especializados sirven para paralelismo, aislamiento de contexto o review fresca, no para ceremonial.
+- Los cambios docs-only (`*.md`) no deben disparar ceremonia pesada por defecto;
+  revisar contenido/diff y elevar solo si el doc cambia riesgos reales.
 
 ## Contexto
 
@@ -67,6 +69,12 @@ No promover a memoria durable:
 - `code-reviewer`: critica diff y riesgos; no edita.
 - `reconciler`: aplica findings concretos e inconsistencias de integracion.
 - `verifier`: ejecuta lint, build, tests y compara contra la spec.
+- Docs-only fast path: cuando el diff solo crea o modifica Markdown (`*.md`) y
+  no altera contratos, arquitectura, seguridad, permisos, agentes, workflows
+  criticos, installers/doctors ni instrucciones operativas con impacto real, el
+  cierre puede ser inline sin `code-reviewer`, `reconciler` ni `verifier`; basta
+  revisar diff/contenido, rutas, formato Markdown razonable y links/referencias
+  obvias si aplican.
 
 ### Flujo V3 (runtime contract)
 
@@ -81,6 +89,9 @@ No promover a memoria durable:
   secretos, privacidad, input externo y supply chain requieren review de
   seguridad; cuando esas superficies mueven trust boundaries o permisos,
   corresponden ambos reviewers.
+- Para docs-only, `build` debe preferir el fast path sin reviewers ni verifier
+  salvo que el contenido documentado cambie o defina una de las superficies de
+  riesgo anteriores, contratos publicos o instrucciones operativas criticas.
 - `code-reviewer`, `architecture-reviewer`, `security-reviewer`, `reconciler` y
   `verifier` deben devolver/consumir salida JSON estructurada para cierre
   determinista. Los tres reviewers comparten el mismo schema top-level exacto:
@@ -154,6 +165,9 @@ Fases recomendadas:
 12. `verify`: validar contra spec, tests y evidencia.
 13. `archive`: registrar decisiones, deuda y follow-ups.
 
+Para docs-only de bajo riesgo, reducir el flujo a `apply` + revision minima del
+diff/contenido; no convertir escritura Markdown rutinaria en SDD completo.
+
 Default interactivo: pausar entre `proposal`, `spec`, `design` y `tasks` cuando
 haya decisiones de producto o arquitectura.
 
@@ -174,6 +188,9 @@ Cada builder debe recibir:
 Antes de cerrar:
 
 - Ejecutar checks relevantes.
+- Para docs-only de bajo riesgo, los checks relevantes son revision de
+  diff/contenido, rutas, Markdown razonable y links/referencias obvias si
+  aplican; no correr lint/build/tests ni `verifier` por defecto.
 - Si hay UI, verificar visualmente cuando aplique.
 - Si hay API, DB o seguridad, validar contrato y casos negativos.
 - Si no se pudo verificar, reportar el comando o evidencia faltante.

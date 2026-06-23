@@ -3,6 +3,7 @@ description: Primary ask-mode mentor for learning unfamiliar languages/framework
 mode: primary
 model: openai/gpt-5.5
 variant: high
+reasoningEffort: high
 permission:
   edit: deny
   bash: deny

@@ -3,6 +3,7 @@ description: Cheap read-only explorer for fast repository mapping, evidence gath
 mode: subagent
 model: openai/gpt-5.4-mini
 variant: medium
+reasoningEffort: medium
 temperature: 0.1
 steps: 8
 permission:

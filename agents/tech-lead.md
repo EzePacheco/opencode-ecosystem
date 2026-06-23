@@ -3,6 +3,7 @@ description: Read-only design reviewer for larger specs that identifies architec
 mode: subagent
 model: openai/gpt-5.5
 variant: xhigh
+reasoningEffort: high
 temperature: 0.1
 permission:
   edit: deny

@@ -3,6 +3,7 @@ description: Implements scoped QA and E2E test slices from an approved spec, pre
 mode: subagent
 model: openai/gpt-5.5
 variant: high
+reasoningEffort: high
 temperature: 0.1
 permission:
   "agent-memory_*": deny

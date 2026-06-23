@@ -3,6 +3,7 @@ description: Implements schema, migration, query, and persistence slices from an
 mode: subagent
 model: openai/gpt-5.5
 variant: medium
+reasoningEffort: medium
 temperature: 0.2
 permission:
   "agent-memory_*": deny

@@ -3,6 +3,7 @@ description: Fallback fast, cheap, read-only exploration using GPT-5.4 Mini when
 mode: subagent
 model: openai/gpt-5.4-mini
 variant: medium
+reasoningEffort: medium
 temperature: 0.1
 steps: 8
 permission:

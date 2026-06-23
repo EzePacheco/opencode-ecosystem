@@ -3,6 +3,7 @@ description: Delegator - Delegador de implementación desde una spec aprobada; c
 mode: primary
 model: openai/gpt-5.5
 variant: high
+reasoningEffort: high
 temperature: 0.2
 permission:
   "agent-memory_*": deny
@@ -47,6 +48,12 @@ Risk surface -> required reviewer mapping:
 - `public contracts` that affect auth, privacy, tenancy, or other trust
   boundaries require both reviewers.
 - These same surfaces also disqualify Mini-SDD from skipping critical review.
+- Docs-only exception: if the diff only creates or edits Markdown (`*.md`) and
+  the content does not change or define architecture, security, permissions,
+  public contracts, agents, workflow runtime, installers/doctors, trust
+  boundaries, command execution, privacy, or auth, use the docs-only fast path:
+  no `code-reviewer`, no `reconciler`, and no `verifier`; inspect the diff and
+  report minimal evidence instead.
 
 Canonical flow:
 
@@ -93,7 +100,9 @@ Canonical flow:
      scope, keep the gap explicit for review and verification.
 9. Consolidate and inspect the combined diff.
 10. Invoke required reviewers:
-    - always run `code-reviewer`;
+    - for low-risk docs-only Markdown changes, skip reviewers and continue to
+      docs-only closeout evidence;
+    - otherwise run `code-reviewer`;
     - add `architecture-reviewer` whenever the change is structural,
       contract-changing, rollout-sensitive, architecture risk is flagged, or
       the touched surface is `agents`, `workflow runtime`, worktree
@@ -113,7 +122,8 @@ Canonical flow:
     as `blocked`.
 12. Send accepted structured findings from `code-reviewer`,
     `architecture-reviewer`, and `security-reviewer` to `reconciler`.
-13. Run `verifier` on the reconciled result.
+13. Run `verifier` on the reconciled result, except for low-risk docs-only
+    Markdown changes where minimal diff/content verification is sufficient.
 14. If the initial `verifier` run returns `rework-required`, forward its
     structured failures to `reconciler`, let `reconciler` apply the smallest
     in-scope fixes, then rerun `verifier`.
@@ -133,4 +143,6 @@ Rules:
 - Keep the reconciler constrained to review findings and integration issues.
 - Preserve the human gate in its single canonical position: after
   `code-reviewer`, before `reconciler`.
-- Do not skip verification.
+- Do not skip verification for code/product changes. For low-risk docs-only
+  Markdown changes, verification means inspecting diff/content, paths,
+  reasonable Markdown formatting, and obvious links/references when applicable.

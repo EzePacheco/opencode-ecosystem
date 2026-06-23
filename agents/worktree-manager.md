@@ -3,6 +3,7 @@ description: Read-mostly worktree helper that prepares and inspects git worktree
 mode: subagent
 model: openai/gpt-5.4-mini
 variant: medium
+reasoningEffort: medium
 temperature: 0.1
 permission:
   edit: deny

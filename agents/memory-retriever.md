@@ -3,6 +3,7 @@ description: Disabled native memory helper that only cross-checks caller-provide
 mode: subagent
 model: openai/gpt-5.4-mini
 variant: medium
+reasoningEffort: medium
 temperature: 0.1
 permission:
   "*": deny
