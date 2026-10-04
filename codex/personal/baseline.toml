@@ -1,0 +1,14 @@
+# Fragmento portable alineado con el archivo observado 2026-10-04: no certifica parámetros runtime.
+# Fedora: revisar cada preferencia antes de fusionar; nunca sustituir la configuración completa.
+model = "gpt-6.1-sol"
+model_reasoning_effort = "high"
+plan_mode_reasoning_effort = "high"
+web_search = "cached"
+
+[agents]
+# Sin cap personal explícito: el cliente elige su default; no implica concurrencia ilimitada.
+default_subagent_model = "gpt-6-luna"
+default_subagent_reasoning_effort = "high"
+
+[features]
+memories = false

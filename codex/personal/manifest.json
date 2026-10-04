@@ -1,0 +1,96 @@
+{
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "483ab84138668907da3c974d222b89fefb2e7cef2821052af4da2e364b83c481"
+    },
+    {
+      "path": "README.md",
+      "sha256": "02bbf831c79a030db8bdc483bd9c7fe9c103acbf8f015f6f16ea0f052aa3cb7a"
+    },
+    {
+      "path": "baseline.toml",
+      "sha256": "6a3ad891ae0d9169726c23b7996214d1cb1f960a4ad0ade82ab44d6b496fdb19"
+    },
+    {
+      "path": "skills/architecture-health/SKILL.md",
+      "sha256": "26d066e837f4053f2ac91bfce5374fe82b4070e19753e1830f090100aa37a445"
+    },
+    {
+      "path": "skills/architecture-health/references/audit-rubric.md",
+      "sha256": "79b9c4f3445dcb4469cdf62923497be3d9c93274ae9a5761f9688355f1fdc670"
+    },
+    {
+      "path": "skills/architecture-health/scripts/architecture_inventory.py",
+      "sha256": "1be2aa80adb1f45917a20ab92c6167256cb842ca8c2a48ccb862fb6b29842cea"
+    },
+    {
+      "path": "skills/architecture-health/tests/test_architecture_inventory.py",
+      "sha256": "18e121f7560b0cca168e99ac3a693278863b99884f4e83ecfa6b6ab55278e952"
+    },
+    {
+      "path": "skills/ejecutar-handoff/SKILL.md",
+      "sha256": "4b53c7cae7097fa747c7f210ffed4390658807e6f4d8890a63279f6d8dbec9b1"
+    },
+    {
+      "path": "skills/ejecutar-handoff/scripts/verify_pack.py",
+      "sha256": "55f3cac1737e37328a5c005057c5a028254facd0b2a4d59c6f77ad3a25b4d975"
+    },
+    {
+      "path": "skills/product-context/SKILL.md",
+      "sha256": "c2bffafdc498698fa85f8227c646c6c9d6adebe1f930af4d7bbd3c860a3a7751"
+    },
+    {
+      "path": "skills/product-context/references/authority-resolution.md",
+      "sha256": "864583c422a11541024d9cf398e74f0051f9fbc17130209015894a2a9f7a5e72"
+    },
+    {
+      "path": "skills/product-context/references/chatgpt-project.md",
+      "sha256": "9dcc64df04d3a0bd665ffa46ef294df16aaa06502be90640174198697c1661c5"
+    },
+    {
+      "path": "skills/product-context/references/workflows.md",
+      "sha256": "9542485d29c2c907e31977cadaa16f61e1acd7a1108900004deb85d2db97f66e"
+    },
+    {
+      "path": "skills/repo-readiness/SKILL.md",
+      "sha256": "6c41ab11ede496b11975a561008441079b7cecdffdcfccfc87d2a876546b37bb"
+    },
+    {
+      "path": "skills/repo-readiness/references/audit-rubric.md",
+      "sha256": "b70c02c2d5c0fe6923ff62c521987cc2f22846818a4d4a1a4ba81e75e86b789d"
+    },
+    {
+      "path": "skills/repo-readiness/references/multi-repo.md",
+      "sha256": "7c5a165a5d1a99a6057d5086aeb4d284aadc7657633be3390b96bfaca44fa371"
+    },
+    {
+      "path": "skills/repo-readiness/references/profiles.md",
+      "sha256": "5994f07b22e4df3e7e81fb645794a64c2c77649a4bb49aaea5bb0f0ffe49e935"
+    },
+    {
+      "path": "skills/repo-readiness/scripts/repo_inventory.py",
+      "sha256": "1f47f6e8d6745638b23a6f053dc600545c4ef5adc5bf055d7245cc0537e4da02"
+    },
+    {
+      "path": "skills/repo-readiness/scripts/workspace_inventory.py",
+      "sha256": "9271ded4c68fd408fb8c94f10ad2f3b6f32e811556912a845277bf2488a89d2c"
+    },
+    {
+      "path": "skills/repo-readiness/tests/test_repo_inventory.py",
+      "sha256": "c5526fe0da1b3462956e511da7c667f9f28da597e4fb3aa25a269266aff3d745"
+    },
+    {
+      "path": "skills/repo-readiness/tests/test_workspace_inventory.py",
+      "sha256": "7f9ad2ba90f0c28ebc7d6a660e5f3a9aa33346294594e85b0e8bae9b9ece30a2"
+    },
+    {
+      "path": "skills/repo-remediation/SKILL.md",
+      "sha256": "5781c5b4a8ab198fc780faa0861c23c6228e39e343c3526115ab06675a6eda37"
+    },
+    {
+      "path": "skills/repo-remediation/references/isolation-and-convergence.md",
+      "sha256": "66431f6de9be82f9c15b942be5da6b226d7580380a693642442e364b12e7f8fa"
+    }
+  ]
+}

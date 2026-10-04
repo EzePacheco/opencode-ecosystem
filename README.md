@@ -5,6 +5,10 @@ review, reconciliation, verification, and standards-backed mentoring.
 
 Primary working style: **Neovide + native OpenCode**.
 
+## Current personal Codex baseline
+
+The Fedora/Ubuntu personal harness is versioned separately in [codex/personal](codex/personal/README.md). Follow its manual merge instructions for that baseline. The existing installers and doctors retain their historical scope and do not deploy this personal package. Native OpenCode files are unchanged.
+
 ## Includes
 
 - `opencode.jsonc`: portable global config.
