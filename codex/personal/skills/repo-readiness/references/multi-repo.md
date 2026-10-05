@@ -41,7 +41,7 @@ Seleccionar sólo repos con:
 - warnings que impidan concluir;
 - selección explícita del usuario.
 
-Default: máximo tres deep audits por batch, salvo petición expresa. Resumí los restantes y ofrecé continuar en otro batch. Reutilizá la inventory ya obtenida para el checkout seleccionado.
+Elegí profundidad y orden por riesgo, dependencias, alcance autorizado y recursos disponibles, sin un máximo fijo de repositorios por batch. Reutilizá la inventory ya obtenida para el checkout seleccionado. Paralelizá scopes independientes cuando aporten valor; coordiná o secuenciá checks de memoria/CPU alta según carga y evidencia de su coste, sin alterar procesos del usuario. Si una capacidad o decisión falta, detené sólo lo dependiente y continuá el trabajo independiente. Completá el alcance autorizado; no trasladés el resto a otro batch sólo por una cantidad arbitraria.
 
 ## Output comparativo
 

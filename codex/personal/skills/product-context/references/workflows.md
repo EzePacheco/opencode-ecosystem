@@ -66,6 +66,11 @@ When useful, provide only the minimum derived working context, such as:
 - unresolved Product VERIFY;
 - a relevant repository map or migration/cutover status.
 
+A bridge is Product context, not an exhaustive technical execution plan. A
+brief guide can state the relevant goal, limits, acceptance and provenance;
+Codex inspects the repository and chooses its plan. Add only material risks,
+contracts and decisions, without a mandatory pack, manifest or control header.
+
 Label a bridge **DERIVED WORKING CONTEXT**. It is not authority and should not
 duplicate the Product source of truth. There is no universal output directory
 or mandatory filename. Do not create or upload it unless authorized. When a

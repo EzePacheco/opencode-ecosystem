@@ -11,8 +11,9 @@ whether an engineering handoff needs Product context.
 - **ChatGPT Project** — orchestration, Project instructions, governance
   sources, and only the minimal Product bridge actually needed for work in that
   Project. A Project bridge is derived working context, never authority.
-- **Codex** — repository/runtime Technical Truth from current implementation
-  evidence. Codex Local does not automatically receive Space, Project, Sources,
+- **Codex** — inspect the repository and applicable instructions, resolve
+  current Technical Truth, and choose the proportional technical plan for the
+  authorized outcome. Codex Local does not automatically receive Space, Project, Sources,
   Library or chat content.
 - **Engineering handoff** — explicit transfer by the orchestrator of material
   Product decisions, or references to canonical sources that Codex can
@@ -22,6 +23,22 @@ Products need not adopt Space. Continue using each Product's designated
 existing authorities where Space has not been adopted or a scope has not been
 migrated. A Space can be a durable home without every Page being authoritative;
 designation, provenance, status and scope still matter.
+
+## Brief engineering guide
+
+A guide can contain only the relevant goal, limits, observable acceptance and
+provenance. Projects clarifies Product intent and material decisions; Codex
+inspects the actual repository and chooses the implementation plan. Add detail
+only for material risks, contracts, decisions or dependencies. Do not require an
+exhaustive handoff, manifest, spec or control header for routine authorized work.
+Normal-mode execution can plan internally; a real Plan-mode investigation
+remains read-only until the authorized transition.
+
+Transfer material decisions or genuinely accessible references. If an input is
+inaccessible, request only its relevant fragment. A guide or bridge grants no
+access, Product authority, persistence permission or exception to applicable
+Product/company constraints. Personal Codex preferences stay with the user;
+shared repository authorities remain with their owner.
 
 ## Notion-to-Space migration
 
