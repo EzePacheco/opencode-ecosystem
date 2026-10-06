@@ -1,5 +1,10 @@
 # Codex Global Workflow
 
+This workflow belongs to the historical Codex adaptation outside `codex/personal/`.
+For work in `codex/personal/`, use that subtree's instructions and README; the
+historical agents, skills, installed standards path, installers and doctors below
+are not prerequisites or routing for the active personal baseline.
+
 ## Core Role
 
 - Use one main thread by default. Normal work must not require `--profile`.

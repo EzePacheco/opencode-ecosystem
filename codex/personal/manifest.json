@@ -2,15 +2,15 @@
   "files": [
     {
       "path": "AGENTS.md",
-      "sha256": "483ab84138668907da3c974d222b89fefb2e7cef2821052af4da2e364b83c481"
+      "sha256": "694c337277fea62d1cfd78056da68cbb79663608d779480a1ffb6498de367998"
     },
     {
       "path": "README.md",
-      "sha256": "02bbf831c79a030db8bdc483bd9c7fe9c103acbf8f015f6f16ea0f052aa3cb7a"
+      "sha256": "e1bdef27c056a4b26b0706bb0ca05cf64600a0008d1317a0d908d12386068c3a"
     },
     {
       "path": "baseline.toml",
-      "sha256": "6a3ad891ae0d9169726c23b7996214d1cb1f960a4ad0ade82ab44d6b496fdb19"
+      "sha256": "b55d6be3da072962f420c288cf13a67c8f93e1eddcaa6347d3b2ad6efade9cad"
     },
     {
       "path": "skills/architecture-health/SKILL.md",
@@ -22,15 +22,15 @@
     },
     {
       "path": "skills/architecture-health/scripts/architecture_inventory.py",
-      "sha256": "1be2aa80adb1f45917a20ab92c6167256cb842ca8c2a48ccb862fb6b29842cea"
+      "sha256": "cc204085154fa88f372436f04487388178ee660241721e568fbe4e37bf270721"
     },
     {
       "path": "skills/architecture-health/tests/test_architecture_inventory.py",
-      "sha256": "18e121f7560b0cca168e99ac3a693278863b99884f4e83ecfa6b6ab55278e952"
+      "sha256": "d9c2a557a1dc748e44b9a22345ecafc324457a1b4554fd8777073a253f3ccd17"
     },
     {
       "path": "skills/ejecutar-handoff/SKILL.md",
-      "sha256": "4b53c7cae7097fa747c7f210ffed4390658807e6f4d8890a63279f6d8dbec9b1"
+      "sha256": "7be66343190caa94d3a947368baf3b9c8182bc5780317c07ecc2636915331f08"
     },
     {
       "path": "skills/ejecutar-handoff/scripts/verify_pack.py",
@@ -46,11 +46,11 @@
     },
     {
       "path": "skills/product-context/references/chatgpt-project.md",
-      "sha256": "9dcc64df04d3a0bd665ffa46ef294df16aaa06502be90640174198697c1661c5"
+      "sha256": "6c02437cd5385fb47b58e7394ccfe18394d789e734de0315d2b9f0fd9d5e3603"
     },
     {
       "path": "skills/product-context/references/workflows.md",
-      "sha256": "9542485d29c2c907e31977cadaa16f61e1acd7a1108900004deb85d2db97f66e"
+      "sha256": "9544069a1f4818043d6da29b8572b3b846921a492e9f9edab54b631b86d06348"
     },
     {
       "path": "skills/repo-readiness/SKILL.md",
@@ -62,7 +62,7 @@
     },
     {
       "path": "skills/repo-readiness/references/multi-repo.md",
-      "sha256": "7c5a165a5d1a99a6057d5086aeb4d284aadc7657633be3390b96bfaca44fa371"
+      "sha256": "14d818333365a20998d27927e89cec397000153e849b49b734138493da45ede9"
     },
     {
       "path": "skills/repo-readiness/references/profiles.md",
@@ -86,11 +86,19 @@
     },
     {
       "path": "skills/repo-remediation/SKILL.md",
-      "sha256": "5781c5b4a8ab198fc780faa0861c23c6228e39e343c3526115ab06675a6eda37"
+      "sha256": "6304cef82aafdc273da7921dd0725e0862d564d16754bf3245bdf62ab4ef5848"
     },
     {
       "path": "skills/repo-remediation/references/isolation-and-convergence.md",
-      "sha256": "66431f6de9be82f9c15b942be5da6b226d7580380a693642442e364b12e7f8fa"
+      "sha256": "ab4df6547038c1c7371b7eed9634f580ef7f083ddad6b0cdef47dc5bf35d75d7"
+    },
+    {
+      "path": "templates/README.md",
+      "sha256": "c9bfaaad5d5bfe39ce3e57eda92b858d32efb701b3d10bc5dcab48d63a4a868b"
+    },
+    {
+      "path": "templates/project-instructions.md",
+      "sha256": "f8d78f2e442910fe054fbcc2272e0af840ff6a18ce6b35465c95c345a87fa9c5"
     }
   ]
 }

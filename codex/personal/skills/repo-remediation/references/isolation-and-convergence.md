@@ -13,7 +13,7 @@ For each affected checkout record its path, Git common directory, current branch
 
 Prefer creating a separate worktree and a dedicated local branch from the recorded base SHA. Check whether the branch name or target worktree path already exists first. Never repurpose, move, delete, or overwrite an existing branch/worktree. If the base checkout has relevant dirty work, leave it intact and choose a safe base/transfer approach only when ownership and content are clear; otherwise stop that repo and report the blocker. Never use stash/reset as an isolation shortcut. Do not fetch or push as part of isolation.
 
-If worktree creation is unavailable or unsafe, do not silently fall back to editing the base checkout. Report the concrete constraint and use another isolated checkout only when its identity and base are clear; otherwise stop before mutation.
+If worktree creation is unavailable or unsafe, do not silently fall back to editing the base checkout. Report the concrete constraint and use another isolated checkout when its identity and base are clear. An explicitly authorized direct-edit scope can proceed with a preservation baseline and exact backup; otherwise stop only that mutation. The normal isolation preference does not block an explicitly authorized local integration of the verified result.
 
 ## Evidence freshness and focal re-audit
 
@@ -38,6 +38,16 @@ Compare post-remediation findings against the baseline using `repo-readiness`'s 
 - `VERIFY`, `DEFERRED`, `EXTERNAL`, `STOPPED`: retain their status and state what evidence, authority, manual action, or decision is missing.
 
 Reassess changed/new findings through the existing readiness rubric. Do not widen the scanner or treat a changed recommendation as permission. Continue only for newly introduced gaps or remaining actionable, authorized findings. Stop on missing authority, unsafe isolation, unavailable external action, repeated failure without progress, or when the next proposed change is not clearly justified. State why and leave the worktree inspectable.
+
+## Authorized local integration
+
+A request to apply a local operational result authorizes integration only into the named or otherwise unambiguous local destination, not remote merge, publication, service activation or expanded security permissions. Preserve company/personal boundaries and host-specific paths/configuration; do not copy whole directories to achieve literal parity.
+
+Before transfer, revalidate destination root/identity, revision and affected staged, unstaged and untracked content. Identify the exact reviewed paths/delta and its prerequisites. Reconcile relevant existing changes by content and provenance; do not call them unrelated by default or discard them. A material conflict without a safe authorized target stops that transfer, not independent work.
+
+Back up only affected targets privately, recording previous bytes/modes or absence. Apply the exact reviewed delta, read back the destination and verify its affected boundaries with the appropriate local runner. Installed artifacts require installed-path readback; source hashes or worktree tests alone do not establish runtime loading or enforcement. Retain the useful preparation worktree for inspection.
+
+If verification fails, repair within the authorized scope or revert only the introduced delta after checking the target still matches that delivery. Do not restore a whole config or directory over subsequent edits; absence backups do not authorize deleting later work. Report prepared, locally integrated and runtime-verified states separately, with any genuine blocker. An explicitly requested safe local integration must not remain only a patch delivery.
 
 ## Verification and closeout
 

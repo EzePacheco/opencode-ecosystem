@@ -1,7 +1,7 @@
-# Fragmento portable alineado con el archivo observado 2026-10-04: no certifica parámetros runtime.
+# Fragmento portable del baseline personal: no certifica parámetros runtime.
 # Fedora: revisar cada preferencia antes de fusionar; nunca sustituir la configuración completa.
 model = "gpt-6.1-sol"
-model_reasoning_effort = "high"
+model_reasoning_effort = "medium"
 plan_mode_reasoning_effort = "high"
 web_search = "cached"
 

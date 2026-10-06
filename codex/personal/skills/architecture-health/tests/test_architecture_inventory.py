@@ -79,6 +79,59 @@ class InventoryTests(unittest.TestCase):
         self.assertEqual(data["counts"]["source"], 1)
         self.assertEqual(data["scan_scope"]["paths"], ["app/orders"])
 
+    def test_symlink_paths_are_rejected_before_target_stat_or_body_read(self):
+        self.write("safe.py", "value = 1\n")
+        self.write("tracked/module.py", "value = 2\n")
+        self.git("add", "tracked/module.py")
+        with tempfile.TemporaryDirectory() as outside:
+            external = Path(outside)
+            (external / "module.py").write_text("outside = 1\n" * 37)
+            (self.root / "tracked/module.py").unlink()
+            (self.root / "tracked").rmdir()
+            links = {"tracked": external, "leaf.py": external / "module.py",
+                     "inside": self.root, "broken": external / "absent"}
+            try:
+                for name, destination in links.items():
+                    (self.root / name).symlink_to(destination, target_is_directory=name != "leaf.py")
+            except OSError as exc:
+                self.skipTest(f"symlink unavailable: {exc}")
+            forbidden = {self.root / "tracked/module.py", self.root / "leaf.py",
+                         self.root / "inside/safe.py", self.root / "broken/module.py"}
+            paths = [("safe.py", False)] + [(path.relative_to(self.root).as_posix(), True) for path in sorted(forbidden)]
+            original_open, original_stat = Path.open, Path.stat
+            for metadata_only in (False, True):
+                with self.subTest(metadata_only=metadata_only):
+                    opened = []
+
+                    def guarded_open(path, *args, **kwargs):
+                        if path != self.root / "safe.py":
+                            raise AssertionError(f"rejected source body opened: {path.name}")
+                        opened.append(path)
+                        return original_open(path, *args, **kwargs)
+
+                    def guarded_stat(path, *args, **kwargs):
+                        if (path in forbidden or path.is_relative_to(external)) and kwargs.get("follow_symlinks", True):
+                            raise AssertionError(f"rejected source target stat: {path.name}")
+                        return original_stat(path, *args, **kwargs)
+
+                    args = inventory.parser().parse_args([str(self.root)] + (["--metadata-only"] if metadata_only else []))
+                    scanner = inventory.Inventory(self.root, args)
+                    with patch.object(scanner, "file_paths", return_value=paths), patch.object(Path, "open", guarded_open), patch.object(Path, "stat", guarded_stat):
+                        data = scanner.run()
+                    self.assertEqual(data["limits"]["source_files_analyzed"], 1)
+                    self.assertEqual(opened, [] if metadata_only else [self.root / "safe.py"])
+                    self.assertIn("symlink path skipped", data["warnings"])
+
+    def test_invalid_inventory_paths_never_touch_filesystem(self):
+        names = ("", ".", "../outside.py", "/outside.py", "src/../../outside.py", "src//a.py", "src/./a.py", "bad\x00.py")
+        args = inventory.parser().parse_args([str(self.root)])
+        scanner = inventory.Inventory(self.root, args)
+        with patch.object(scanner, "file_paths", return_value=[(name, True) for name in names]), patch.object(Path, "stat", side_effect=AssertionError("invalid path target stat")), patch.object(Path, "open", side_effect=AssertionError("invalid path body opened")):
+            data = scanner.run()
+        self.assertEqual(data["limits"]["bytes_processed"], 0)
+        self.assertEqual(data["limits"]["source_files_analyzed"], 0)
+        self.assertIn("unsafe path skipped", data["warnings"])
+
     def test_metadata_only_never_opens_file_bodies(self):
         self.write("src/policy.py", "rule = 'synthetic'\n")
         self.write("tests/test_policy.py", "assert True\n")

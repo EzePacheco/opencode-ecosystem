@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Bounded, read-only mechanical hints for architecture audit hotspot selection."""
+"""Bounded, read-only mechanical hints for architecture audit hotspot selection.
+
+Inspect a stable authorized checkout: path checks reject existing symlinks and
+escapes, but are not a sandbox against concurrent filesystem replacement.
+"""
 
 from __future__ import annotations
 
@@ -146,6 +150,26 @@ class Inventory:
         self.limits["files_enumerated"] = len(ordered)
         return ordered
 
+    def source_path(self, name: str) -> Path | None:
+        relative = PurePosixPath(name)
+        if (not name or "\x00" in name or relative.is_absolute()
+                or relative.as_posix() != name or name == "." or ".." in relative.parts):
+            self.warnings.append("unsafe path skipped")
+            return None
+        path = self.root
+        # Check each component before resolving or following it for target metadata.
+        # The selected root is canonicalized by preflight; do not inspect its parents.
+        for part in relative.parts:
+            path = path / part
+            if path.is_symlink():
+                self.warnings.append("symlink path skipped")
+                return None
+        resolved = path.resolve(strict=True)
+        if not resolved.is_relative_to(self.root):
+            self.warnings.append("path outside Git root skipped")
+            return None
+        return resolved
+
     @staticmethod
     def test_file(path: PurePosixPath) -> bool:
         name = path.name.lower()
@@ -242,15 +266,12 @@ class Inventory:
                 self.reached("timeout_seconds")
                 break
             relative = PurePosixPath(name)
-            if relative.is_absolute() or ".." in relative.parts:
-                self.warnings.append("unsafe path skipped")
-                continue
             try:
-                path = self.root / name
-                if path.is_symlink() or not path.is_file():
+                path = self.source_path(name)
+                if path is None or not path.is_file():
                     continue
                 size = path.stat().st_size
-            except OSError:
+            except (OSError, RuntimeError):
                 self.warnings.append("file stat unavailable")
                 continue
             totals["tracked" if tracked else "untracked"] += 1
